@@ -5,4 +5,7 @@
 main:
 	gcc -Wall -g main.c -lm `sdl2-config --cflags --libs` -o main
 	
+clean:
+	rm -f main
+	
 #####################################################################
