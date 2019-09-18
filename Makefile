@@ -1,5 +1,8 @@
 
 
+#####################################################################
 
 main:
-	gcc -Wall -g test.c -lm `sdl2-config --cflags --libs` -o main
+	gcc -Wall -g main.c -lm `sdl2-config --cflags --libs` -o main
+	
+#####################################################################
