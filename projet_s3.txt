@@ -16,3 +16,6 @@ Jeu shmup :
   2 types d'ennemis rouge ou blanc.
   Le vaisseau ne peut se faire toucher que par les projectiles des ennemis de la couleur dans laquelle il n'est pas.
   Pas de vie pour le vaisseau, un seul projectile et c'est la mort, mais 100 vies et respawn sur le scroll au même endroit.
+  Génération d'obstacles suivant la lecture d'un fichier texte au préalable
+
+  

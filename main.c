@@ -22,7 +22,7 @@ int main( int argc, char* args[])
         SDL_Window* pWindow = NULL;
         pWindow = SDL_CreateWindow("Ikaruga 2",SDL_WINDOWPOS_UNDEFINED,
                                                                   SDL_WINDOWPOS_UNDEFINED,
-                                                                  960,
+                                                                  1300,
                                                                   720,
                                                                   SDL_WINDOW_SHOWN);
 
@@ -40,8 +40,5 @@ int main( int argc, char* args[])
 
     SDL_Quit();
 
-    return 0;
-    
-    
     return 0;
 }
