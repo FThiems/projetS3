@@ -2,20 +2,15 @@ Jeu shmup :
 
 - Objets :
   Joueur
-  Ennemis(Mobs, Mini Boss, Boss)
+  Ennemis
+  Blocs
 
 - Contrôles :
   4 touches pour se déplacer (ZQSD)
   1 touche pour changer de mode (L)
-  1 touche pour tirer(K)
 
 - Gameplay :
-  Notre vaisseau se déplace sur un scroll 2D vers la droite.
-  Il peut se déplacer de droite à gauche et inversement.
-  Il peut se déplacer de haut en bas et inversement.
-  2 types d'ennemis rouge ou blanc.
-  Le vaisseau ne peut se faire toucher que par les projectiles des ennemis de la couleur dans laquelle il n'est pas.
-  Pas de vie pour le vaisseau, un seul projectile et c'est la mort, mais 100 vies et respawn sur le scroll au même endroit.
-  Génération d'obstacles suivant la lecture d'un fichier texte au préalable
+  déplacer le personnage et changer de mode pour atteindre les différentes plateformes
+  arriver en haut du niveau -> desendre en évitant les plateformes (changer de mode encore)
 
   
