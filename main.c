@@ -7,6 +7,9 @@
 
 #include <stdio.h>
 
+#define F_HEIGTH 720
+#define F_WIDTH 1300
+
 
 int main( int argc, char* args[])
 {
@@ -28,7 +31,50 @@ int main( int argc, char* args[])
 
         if( pWindow )
         {
-            SDL_Delay(3000); /* Attendre trois secondes, que l'utilisateur voie la fenêtre */
+            SDL_Surface *sqr = SDL_LoadBMP("ressources/bitmaps/redsqr.bmp");
+
+            if (sqr)
+            {
+                SDL_Renderer *pRenderer = SDL_CreateRenderer(pWindow, -1, SDL_RENDERER_ACCELERATED);
+
+                if (pRenderer)
+                {
+                    SDL_Texture *pTexture = SDL_CreateTextureFromSurface(pRenderer, sqr);
+
+                    if (pTexture)
+                    {
+                        SDL_Rect dest = {F_WIDTH/2 - sqr->w/2, F_HEIGTH/2 - sqr->h/2, sqr->w, sqr->h};
+                        SDL_RenderCopy(pRenderer, pTexture, NULL, &dest);
+
+                        SDL_RenderPresent(pRenderer);
+                        SDL_Delay(3000);
+
+                        SDL_DestroyTexture(pTexture);
+                        SDL_RenderPresent(pRenderer);
+                        SDL_Delay(3000);
+                    }
+                    else
+                    {
+                        printf("Erreur dans la creation de la texture : %s \n", SDL_GetError());
+                    }
+
+                    SDL_DestroyRenderer(pRenderer);
+                    SDL_RenderPresent(pRenderer);
+                    SDL_Delay(3000);
+                }
+                else
+                {
+                    printf("Erreur dans la creation du rendu : %s\n", SDL_GetError());
+                }
+
+                SDL_FreeSurface(sqr);
+                SDL_RenderPresent(pRenderer);
+                SDL_Delay(3000);
+            }
+            else
+            {
+                printf("Erreur dans le chargement du sprite : %s \n", SDL_GetError());
+            }
 
             SDL_DestroyWindow(pWindow);
         }
