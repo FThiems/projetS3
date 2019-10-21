@@ -8,6 +8,7 @@ Jeu shmup :
 - Contrôles :
   4 touches pour se déplacer (ZQSD)
   1 touche pour changer de mode (L)
+  Space pour sauter
 
 - Gameplay :
   déplacer le personnage et changer de mode pour atteindre les différentes plateformes

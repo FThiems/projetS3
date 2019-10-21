@@ -1,10 +1,10 @@
 SDL = `sdl2-config --cflags --libs`
-COMPIL = gcc -Wall -pedantic -g main.c -lm $(SDL) -o main
+COMPIL = gcc -Wall -pedantic -g -lm $(SDL) 
 
 #####################################################################
 
 main:
-	$(COMPIL)
+	$(COMPIL) main.c -o main
 	
 clean:
 	rm -f main
