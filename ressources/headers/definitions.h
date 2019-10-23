@@ -12,11 +12,14 @@
 
 //Taille de la fenêtre de jeu
 #define F_HEIGHT 720
-#define F_WIDTH 1300
+#define F_WIDTH 1100
 
 //Taille du personnage
 #define P_HEIGHT 50
 #define P_WIDTH 50
+
+//Valeur de la friction
+#define FRICT_Y 0
 
 /////////////// STRUCTURES ///////////////////
 

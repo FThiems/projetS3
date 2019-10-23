@@ -20,9 +20,12 @@ int main(int argc, char* args[])
                                                                   F_HEIGHT,
                                                                   SDL_WINDOW_SHOWN);
     SDL_Surface *sqr = SDL_LoadBMP("ressources/bitmaps/redsqr.bmp");
+    
     SDL_Renderer *pRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    
     SDL_Texture *pTexture = SDL_CreateTextureFromSurface(pRenderer, sqr);
-    SDL_Event *event = malloc(sizeof(SDL_Event));
+    
+    SDL_Event event;
     world_t world;
     sqr_t *cube = calloc(1, sizeof(sqr_t*));
 
@@ -31,41 +34,61 @@ int main(int argc, char* args[])
     cube->x = F_WIDTH/2 - cube->w/2;
     cube->y = F_HEIGHT/2 - cube->h/2;
     cube->vx = 0.0;
-    cube->vy = 1.0;
+    cube->vy = 5.0;
 
     world.gameover = true;
     world.perso = cube;
-    world.blocs = calloc(0, sizeof(bloc_t));
-    printf("oui\n");
+    
+    SDL_Rect dest = {cube->x, cube->y, cube->w, cube->h};
+    SDL_RenderCopy(pRenderer, pTexture, NULL, &dest);
+    SDL_RenderPresent(pRenderer);
+    
+    
     //Boucle de jeu
     while(world.gameover){
 
     	//events
     
-    	while( SDL_PollEvent( event ) ) 
+    	while( SDL_PollEvent( &event ) ) 
     	{
         	//Fermeture de la fenêtre
-        	if( event->type == SDL_QUIT ) 
+        	if( event.type == SDL_QUIT ) 
         	{
             	//Close
             	world.gameover = false;
         	}
 	        
 	        //loop delay
-    		if( event->type == SDLK_LEFT ){
+    		if( event.key.keysym.sym  == SDLK_LEFT ){
         		world.perso->x -= 10;
     		}
-    		if( event->type == SDLK_LEFT ){
+    		if( event.key.keysym.sym  == SDLK_RIGHT ){
         		world.perso->x += 10;
     		}
+    		if( event.key.keysym.sym == SDLK_SPACE ){
+                world.perso->vy = -7;
+            }
     	}
-
+        //printf("yes\n");
     	//data
-
+    	dest.x = world.perso->x;
+        if (world.perso->vy < 5){
+            world.perso->vy += 0.05;
+        }
+        //printf("yes\n");
+        world.perso->y += world.perso->vy;
+        if (world.perso->y+world.perso->h < F_HEIGHT){
+            dest.y = world.perso->y;
+        }
+        //printf("yes\n");
     	//graphics
+        SDL_SetRenderDrawColor(pRenderer, 0, 0, 0, 255);
+        SDL_RenderClear(pRenderer);
+        SDL_RenderCopy(pRenderer, pTexture, NULL, &dest);
+        SDL_RenderPresent(pRenderer);
 
 
-    	SDL_Delay(100);
+    	SDL_Delay(10);
     }
 
     SDL_Quit();
