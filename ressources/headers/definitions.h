@@ -21,6 +21,27 @@
 /////////////// STRUCTURES ///////////////////
 
 /**
+ * \brief Structure de notre personnage
+ */
+struct sqr_s
+{
+	double x, y; /*!< Coordonnées du cube */
+	double vx, vy; /*!< Vitesses du cube */
+	int w, h; /*!< Hauteur et largeur du cube */
+};
+typedef struct sqr_s sqr_t;
+
+/**
+ * \brief structure des blocs du jeu
+ */
+struct bloc_s
+{
+	double x, y; /*!< Coordonnées du bloc */
+	bool estVisible; /*!< Vrai si le bloc est visible, sinon faux */
+};
+typedef struct bloc_s bloc_t;
+
+/**
  * \brief Structure du monde de jeu
  */
 struct world_s
@@ -34,24 +55,5 @@ struct world_s
 
 };
 typedef struct world_s world_t;
-
-/**
- * \brief Structure de notre personnage
- */
-struct sqr_s
-{
-	double x, y; /*!< Coordonnées du cube */
-	double vx, vy; /*!< Vitesses du cube */
-};
-typedef struct sqr_s sqr_t;
-
-/**
- * \brief structure des blocs du jeu
- */
-struct bloc_s
-{
-	double x, y; /*!< Coordonnées du bloc */
-	bool estVisible; /*!< Vrai si le bloc est visible, sinon faux */
-}
 
 #endif

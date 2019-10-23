@@ -23,7 +23,7 @@ int main(int argc, char* args[])
     {
         /* Création de la fenêtre */
         SDL_Window* pWindow = NULL;
-        pWindow = SDL_CreateWindow("Ikaruga 2",SDL_WINDOWPOS_UNDEFINED,
+        pWindow = SDL_CreateWindow("Fenêtre de jeu",SDL_WINDOWPOS_UNDEFINED,
                                                                   SDL_WINDOWPOS_UNDEFINED,
                                                                   1300,
                                                                   720,
@@ -43,13 +43,20 @@ int main(int argc, char* args[])
 
                     if (pTexture)
                     {
+                        //Première frame
                         SDL_SetRenderDrawColor(pRenderer, 255, 255, 255, 255);
                         SDL_RenderClear(pRenderer);
                         SDL_Rect dest = {F_WIDTH/2 - sqr->w/2, F_HEIGTH/2 - sqr->h/2, sqr->w, sqr->h};
                         SDL_RenderCopy(pRenderer, pTexture, NULL, &dest);
-
                         SDL_RenderPresent(pRenderer);
                         SDL_Delay(3000);
+
+                        //Deuxième frame
+                        dest.x = 0;
+                        dest.y = 0;
+                        SDL_SetRenderDrawColor(pRenderer, 255, 255, 0, 255);
+                        SDL_RenderClear(pRenderer);
+                        SDL_RenderCopy(pRenderer, pTexture, NULL, &dest);
 
                         SDL_DestroyTexture(pTexture);
                         SDL_RenderPresent(pRenderer);
