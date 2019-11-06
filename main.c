@@ -1,9 +1,9 @@
 /**
  * \file main.c
- * \brief Fichier d'execution du projet Ikaruga 2
+ * \brief Fichier d'execution du projet sans nom
  */
 #include <SDL2/SDL.h>
-#include "ressources/headers/definitions.h"
+#include "library/headers/definitions.h"
 
 int main(int argc, char* args[])
 {
@@ -34,7 +34,7 @@ int main(int argc, char* args[])
     cube->x = F_WIDTH/2 - cube->w/2;
     cube->y = F_HEIGHT/2 - cube->h/2;
     cube->vx = 0.0;
-    cube->vy = 5.0;
+    cube->vy = 2.0;
 
     world.gameover = true;
     world.perso = cube;
@@ -42,6 +42,8 @@ int main(int argc, char* args[])
     SDL_Rect dest = {cube->x, cube->y, cube->w, cube->h};
     SDL_RenderCopy(pRenderer, pTexture, NULL, &dest);
     SDL_RenderPresent(pRenderer);
+
+    const Uint8* keystates;
     
     
     //Boucle de jeu
@@ -57,19 +59,33 @@ int main(int argc, char* args[])
             	//Close
             	world.gameover = false;
         	}
-	        
-	        //loop delay
-    		if( event.key.keysym.sym  == SDLK_LEFT ){
-        		world.perso->x -= 10;
-    		}
-    		if( event.key.keysym.sym  == SDLK_RIGHT ){
-        		world.perso->x += 10;
-    		}
-    		if( event.key.keysym.sym == SDLK_SPACE ){
-                world.perso->vy = -7;
-            }
-    	}
-        //printf("yes\n");
+        }
+
+        SDL_PumpEvents();
+
+        keystates = SDL_GetKeyboardState(NULL);
+
+        if(keystates[SDL_SCANCODE_LEFT]){
+            world.perso->x -= 3;
+        }
+        if(keystates[SDL_SCANCODE_RIGHT]){
+            world.perso->x += 3;
+        }
+	    if(keystates[SDL_SCANCODE_SPACE]){
+            world.perso->vy = -5;
+        }
+	    //     //loop delay
+    	// 	if( event.key.keysym.sym  == SDLK_LEFT ){
+     //    		world.perso->x -= 10;
+    	// 	}
+    	// 	if( event.key.keysym.sym  == SDLK_RIGHT ){
+     //    		world.perso->x += 10;
+    	// 	}
+    	// 	if( event.key.keysym.sym == SDLK_SPACE ){
+     //            world.perso->vy = -7;
+     //        }
+    	// }
+     //    //printf("yes\n");
     	//data
     	dest.x = world.perso->x;
         if (world.perso->vy < 5){
@@ -81,6 +97,7 @@ int main(int argc, char* args[])
             dest.y = world.perso->y;
         }
         //printf("yes\n");
+
     	//graphics
         SDL_SetRenderDrawColor(pRenderer, 0, 0, 0, 255);
         SDL_RenderClear(pRenderer);
@@ -89,6 +106,7 @@ int main(int argc, char* args[])
 
 
     	SDL_Delay(10);
+        
     }
 
     SDL_Quit();
