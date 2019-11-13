@@ -27,7 +27,7 @@ int main(int argc, char* args[])
     
     SDL_Event event;
     world_t world;
-    sqr_t *cube = calloc(1, sizeof(sqr_t*));
+    sqr_t *cube = calloc(1, sizeof(sqr_t));
 
     cube->h = 50;
     cube->w = 50;
@@ -87,16 +87,24 @@ int main(int argc, char* args[])
     	// }
      //    //printf("yes\n");
     	//data
-    	dest.x = world.perso->x;
         if (world.perso->vy < 5){
             world.perso->vy += 0.05;
         }
-        //printf("yes\n");
-        world.perso->y += world.perso->vy;
-        if (world.perso->y+world.perso->h < F_HEIGHT){
-            dest.y = world.perso->y;
+        else{
+            world.perso->vy = 5;
         }
         //printf("yes\n");
+        //Si à la prochaine frame il rentre en collision alors on stoppe le deplacement
+        if (world.perso->y+world.perso->h+world.perso->vy < F_HEIGHT){
+            world.perso->y += world.perso->vy;
+        }
+        else{
+            world.perso->y = 669;
+        }
+        //printf("yes\n");
+        dest.x = world.perso->x;
+        dest.y = world.perso->y;
+        printf("y : %f vy : %f try : %f\n", world.perso->y, world.perso->vy, world.perso->y+world.perso->h);
 
     	//graphics
         SDL_SetRenderDrawColor(pRenderer, 0, 0, 0, 255);
