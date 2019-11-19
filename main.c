@@ -4,8 +4,11 @@
  */
 #include <SDL2/SDL.h>
 #include "library/headers/definitions.h"
+#include "library/headers/initialisation.h"
+#include "library/headers/data.h"
+#include "library/headers/events.h"
 
-int main(int argc, char* args[])
+int main(int argc, char* argv[])
 {
     //Initialisation
 	if (SDL_Init(SDL_INIT_VIDEO) != 0 )
@@ -27,81 +30,21 @@ int main(int argc, char* args[])
     
     SDL_Event event;
     world_t world;
-    sqr_t *cube = calloc(1, sizeof(sqr_t));
-
-    cube->h = 50;
-    cube->w = 50;
-    cube->x = F_WIDTH/2 - cube->w/2;
-    cube->y = F_HEIGHT/2 - cube->h/2;
-    cube->vx = 0.0;
-    cube->vy = 2.0;
-
-    world.gameover = true;
-    world.perso = cube;
+    printf("oui");
+    init_world(&world);
+    printf("oui");
     
-    SDL_Rect dest = {cube->x, cube->y, cube->w, cube->h};
+    SDL_Rect dest = {world.perso->x, world.perso->y, world.perso->w, world.perso->h};
     SDL_RenderCopy(pRenderer, pTexture, NULL, &dest);
     SDL_RenderPresent(pRenderer);
-
-    const Uint8* keystates;
     
     
     //Boucle de jeu
-    while(world.gameover){
+    while(!world.gameover){
 
-    	//events
-    
-    	while( SDL_PollEvent( &event ) ) 
-    	{
-        	//Fermeture de la fenêtre
-        	if( event.type == SDL_QUIT ) 
-        	{
-            	//Close
-            	world.gameover = false;
-        	}
-        }
+    	handle_events(&world, &event);
+    	data_update(&world);
 
-        SDL_PumpEvents();
-
-        keystates = SDL_GetKeyboardState(NULL);
-
-        if(keystates[SDL_SCANCODE_LEFT]){
-            world.perso->x -= 3;
-        }
-        if(keystates[SDL_SCANCODE_RIGHT]){
-            world.perso->x += 3;
-        }
-	    if(keystates[SDL_SCANCODE_SPACE]){
-            world.perso->vy = -5;
-        }
-	    //     //loop delay
-    	// 	if( event.key.keysym.sym  == SDLK_LEFT ){
-     //    		world.perso->x -= 10;
-    	// 	}
-    	// 	if( event.key.keysym.sym  == SDLK_RIGHT ){
-     //    		world.perso->x += 10;
-    	// 	}
-    	// 	if( event.key.keysym.sym == SDLK_SPACE ){
-     //            world.perso->vy = -7;
-     //        }
-    	// }
-     //    //printf("yes\n");
-    	//data
-        if (world.perso->vy < 5){
-            world.perso->vy += 0.05;
-        }
-        else{
-            world.perso->vy = 5;
-        }
-        //printf("yes\n");
-        //Si à la prochaine frame il rentre en collision alors on stoppe le deplacement
-        if (world.perso->y+world.perso->h+world.perso->vy < F_HEIGHT){
-            world.perso->y += world.perso->vy;
-        }
-        else{
-            world.perso->y = 669;
-        }
-        //printf("yes\n");
         dest.x = world.perso->x;
         dest.y = world.perso->y;
         printf("y : %f vy : %f try : %f\n", world.perso->y, world.perso->vy, world.perso->y+world.perso->h);

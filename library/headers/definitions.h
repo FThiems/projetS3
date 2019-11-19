@@ -9,6 +9,7 @@
 /////////////// IMPORTS //////////////////////
 
 #include <stdbool.h>
+#include <SDL2/SDL.h>
 
 //Taille de la fenêtre de jeu
 #define F_HEIGHT 720
@@ -56,6 +57,8 @@ struct world_s
 	sqr_t* perso; /*!< Pointeur sur le personnage de jeu */
 	bloc_t** blocs; /*!< Tableau de pointeurs sur blocs qui sont nos obstacles */
 
+	//images du jeu
+	SDL_Surface* image_perso; /*!< Image du personnage */
 };
 typedef struct world_s world_t;
 
