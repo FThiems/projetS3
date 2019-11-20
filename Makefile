@@ -8,10 +8,10 @@ LIB=library/
 LIBH=library/headers/
 
 #sources
-SRC = main.c $(LIB)initialisation.o $(LIB)events.o $(LIB)data.o
+SRC = main.c $(LIB)initialisation.o $(LIB)events.o $(LIB)data.o $(LIB)graphics.o
 
 #headers
-HEAD = $(LIBH)definitions.h $(LIBH)initialisation.h $(LIBH)events.h $(LIBH)data.h
+HEAD = $(LIBH)definitions.h $(LIBH)initialisation.h $(LIBH)events.h $(LIBH)data.h $(LIBH)graphics.h
 
 #####################################################################
 #gcc -Wall -g $(SRC) -lm `sdl-config --cflags --libs` -o $(BIN)
@@ -28,11 +28,14 @@ events.o:          $(LIB)events.c                    $(LIBH)events.h            
 	$(COMPILE)    -c events.c                        -o events.o
 
 data.o:            $(LIB)data.c                      $(LIBH)data.h                       $(DEFH)
-	$(COMPILE)    -c data.c                          -o data.o                                      
+	$(COMPILE)    -c data.c                          -o data.o              
+
+graphics.o:        $(LIB)graphics.c                  $(LIBH)graphics.h                   $(DEFH)
+	$(COMPILE)	  -c graphics.c 					 -o graphics.o                    
 
 #####################################################################
 
 clean:
-	rm -f main
+	rm -f $(NAME)
 	
 #####################################################################

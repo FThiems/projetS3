@@ -32,6 +32,7 @@ struct sqr_s
 	double x, y; /*!< Coordonnées du cube */
 	double vx, vy; /*!< Vitesses du cube */
 	int w, h; /*!< Hauteur et largeur du cube */
+	bool peutSauter; /*!< Vrai si le perso peut sauter, sinon faux */
 };
 typedef struct sqr_s sqr_t;
 
@@ -57,8 +58,14 @@ struct world_s
 	sqr_t* perso; /*!< Pointeur sur le personnage de jeu */
 	bloc_t** blocs; /*!< Tableau de pointeurs sur blocs qui sont nos obstacles */
 
+	//elements sdl
+	SDL_Rect dest; /*!< SDL_Rect destination du sprite de notre perso */
+
 	//images du jeu
 	SDL_Surface* image_perso; /*!< Image du personnage */
+
+	//textures du jeu
+	SDL_Texture* texture_perso; /*!< Texture du personnage */
 };
 typedef struct world_s world_t;
 

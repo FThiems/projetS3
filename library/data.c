@@ -4,7 +4,6 @@
  */
 
 #include"headers/data.h"
-#include"headers/definitions.h"
 
 void data_update(world_t* world){
 		//data
@@ -23,4 +22,8 @@ void data_update(world_t* world){
             world->perso->y = 669;
         }
         //printf("yes\n");
+
+        world->dest.x = world->perso->x;
+        world->dest.y = world->perso->y;
+        printf("y : %f vy : %f try : %f\n", world->perso->y, world->perso->vy, world->perso->y+world->perso->h);
 }

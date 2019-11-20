@@ -4,7 +4,6 @@
  */
 
 #include "headers/events.h"
-#include "headers/definitions.h"
 
 void handle_events(world_t* world, SDL_Event* event){
 

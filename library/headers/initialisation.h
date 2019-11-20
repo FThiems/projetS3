@@ -6,8 +6,14 @@
 #ifndef INIT 
 #define INIT
 
-void init_world(world_t *world);
+#include "definitions.h"
+
+void init_world(world_t* world, SDL_Renderer* screen);
 
 sqr_t* init_perso();
+
+SDL_Rect init_dest(world_t* world);
+
+SDL_Renderer* init_sdl();
 
 #endif
