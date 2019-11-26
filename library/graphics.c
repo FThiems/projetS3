@@ -12,3 +12,7 @@ void refresh_graphics(world_t* world, SDL_Renderer* screen){
     SDL_RenderPresent(screen);
 
 }
+
+void init_graphics(world_t* world, SDL_Renderer* screen){
+	
+}

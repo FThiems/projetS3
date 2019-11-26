@@ -12,12 +12,16 @@
 #include <SDL2/SDL.h>
 
 //Taille de la fenêtre de jeu
-#define F_HEIGHT 720
+#define F_HEIGHT 750
 #define F_WIDTH 1100
 
 //Taille du personnage
 #define P_HEIGHT 50
 #define P_WIDTH 50
+
+//Taille des blocs du jeu
+#define B_HEIGHT 50
+#define B_WIDTH 50
 
 //Valeur de la friction
 #define FRICT_Y 0
@@ -56,17 +60,30 @@ struct world_s
 
 	//elements du jeu
 	sqr_t* perso; /*!< Pointeur sur le personnage de jeu */
-	bloc_t** blocs; /*!< Tableau de pointeurs sur blocs qui sont nos obstacles */
+	map_t* map; /*!< Pointeur sur la structure qui représente la carte de jeu */
 
 	//elements sdl
 	SDL_Rect dest; /*!< SDL_Rect destination du sprite de notre perso */
 
-	//images du jeu
-	SDL_Surface* image_perso; /*!< Image du personnage */
-
 	//textures du jeu
 	SDL_Texture* texture_perso; /*!< Texture du personnage */
+	SDL_Texture* tileset; /*!< Texture du monde */
 };
 typedef struct world_s world_t;
+
+struct map_s
+{
+	//representation de la map du jeu
+	int nbtilesX, nbtilesY;/*!< Nombre de tiles en X et en Y (X*Y total) de la carte de jeu*/
+	tile_t** tabTile;/*! */
+};
+typedef struct map_s map_t;
+
+struct tile_s
+{
+	SDL_Rect rect;/*!< SDl_Rect source de chaque tile */
+	int typeTile;/*!< Type de chaque tile : 0 pour un mur, 1 pour un element traversable */
+};
+typedef struct tile_s tile_t;
 
 #endif

@@ -10,4 +10,6 @@
 
 void refresh_graphics(world_t* world, SDL_Renderer* screen);
 
+void init_graphics(world_t* world, SDL_Renderer* screen);
+
 #endif

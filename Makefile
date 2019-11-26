@@ -8,7 +8,7 @@ LIB=library/
 LIBH=library/headers/
 
 #sources
-SRC = main.c $(LIB)initialisation.o $(LIB)events.o $(LIB)data.o $(LIB)graphics.o
+SRC = $(LIB)initialisation.o $(LIB)events.o $(LIB)data.o $(LIB)graphics.o
 
 #headers
 HEAD = $(LIBH)definitions.h $(LIBH)initialisation.h $(LIBH)events.h $(LIBH)data.h $(LIBH)graphics.h
@@ -16,8 +16,8 @@ HEAD = $(LIBH)definitions.h $(LIBH)initialisation.h $(LIBH)events.h $(LIBH)data.
 #####################################################################
 #gcc -Wall -g $(SRC) -lm `sdl-config --cflags --libs` -o $(BIN)
 
-game: $(SRC) $(HEAD)
-	$(COMPILE) $(SRC) -o $(NAME) $(SDL) 
+game: main.c $(SRC) $(HEAD)
+	$(COMPILE) $(SRC) main.c -o $(NAME) $(SDL) 
 	
 #####################################################################
 
@@ -37,5 +37,8 @@ graphics.o:        $(LIB)graphics.c                  $(LIBH)graphics.h          
 
 clean:
 	rm -f $(NAME)
+
+superclean:
+	rm -f $(SRC) $(NAME) 
 	
 #####################################################################

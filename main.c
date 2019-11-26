@@ -15,6 +15,7 @@ int main(int argc, char* argv[])
     SDL_Event event;
     world_t world;
     init_world(&world, screen);
+    init_graphics(&world, screen);
     
     //Boucle de jeu
     while(!world.gameover){
@@ -22,7 +23,6 @@ int main(int argc, char* argv[])
     	handle_events(&world, &event);
     	data_update(&world);
         refresh_graphics(&world, screen);
-
     	SDL_Delay(10);
         
     }

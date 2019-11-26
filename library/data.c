@@ -7,11 +7,11 @@
 
 void data_update(world_t* world){
 		//data
-        if (world->perso->vy < 5){
-            world->perso->vy += 0.05;
+        if (world->perso->vy < 7){
+            world->perso->vy += 0.15;
         }
         else{
-            world->perso->vy = 5;
+            world->perso->vy = 7;
         }
         //printf("yes\n");
         //Si à la prochaine frame il rentre en collision alors on stoppe le deplacement
