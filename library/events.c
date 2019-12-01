@@ -30,7 +30,7 @@ void handle_events(world_t* world, SDL_Event* event){
             world->perso->x += 3;
         }
 	    if(keystates[SDL_SCANCODE_SPACE]){
-            world->perso->vy = -7;
+            world->perso->vy = -5;
         }
 	    //     //loop delay
     	// 	if( event.key.keysym.sym  == SDLK_LEFT ){

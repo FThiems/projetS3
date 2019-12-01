@@ -10,4 +10,6 @@
 
 void data_update(world_t* world);
 
+void liberer_memoire(world_t* world, SDL_Renderer* screen);
+
 #endif

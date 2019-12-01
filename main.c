@@ -16,6 +16,14 @@ int main(int argc, char* argv[])
     world_t world;
     init_world(&world, screen);
     init_graphics(&world, screen);
+
+    // SDL_Surface* p = SDL_LoadBMP("ressources/bitmaps/Cube1_Upwell.bmp");
+    // SDL_Texture* test = SDL_CreateTextureFromSurface(screen, p);
+    // SDL_FreeSurface(p);
+    // SDL_Rect dest = {0,0,50,50};
+    // SDL_RenderCopy(screen, test, NULL, &dest);
+    // SDL_RenderPresent(screen);
+
     
     //Boucle de jeu
     while(!world.gameover){
@@ -26,8 +34,6 @@ int main(int argc, char* argv[])
     	SDL_Delay(10);
         
     }
-
+    liberer_memoire(&world, screen);
     SDL_Quit();
-
-    //Nettoyage
 }
