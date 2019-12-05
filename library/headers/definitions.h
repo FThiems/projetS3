@@ -14,20 +14,23 @@
 
 ////////////// CONSTATNTES ///////////////////
 
-//Taille de la fenêtre de jeu
-#define F_HEIGHT 750
+//Taille de la fenêtre de jeu (et d'affchage du scrolling)
+#define F_HEIGHT 800
 #define F_WIDTH 1100
 
 //Taille du personnage
-#define P_HEIGHT 50
-#define P_WIDTH 50
+#define P_HEIGHT 100
+#define P_WIDTH 100
 
 //Taille des blocs du jeu
-#define TILE_HEIGHT 50
-#define TILE_WIDTH 50
+#define TILE_HEIGHT 100
+#define TILE_WIDTH 100
 
 //Valeur de la friction
 #define FRICT_Y 0
+
+//Nom de la spritesheet
+#define TILESHEET_NAME "ressources/bitmaps/Spritesheet1.bmp"
 
 /////////////// STRUCTURES ///////////////////
 
@@ -42,16 +45,6 @@ struct sqr_s
 	bool peutSauter; /*!< Vrai si le perso peut sauter, sinon faux */
 };
 typedef struct sqr_s sqr_t;
-
-/**
- * \brief structure des blocs du jeu
- */
-// struct bloc_s
-// {
-// 	double x, y; /*!< Coordonnées du bloc */
-// 	bool estVisible; !< Vrai si le bloc est visible, sinon faux 
-// };
-// typedef struct bloc_s bloc_t;
 
 /**
  * \brief Structure des tiles du jeu
@@ -74,6 +67,7 @@ struct map_s
 	tile_t* tabTile;/*! Tableau des tiles issus de tileset */
 	SDL_Texture* tileset; /*!< Textures du monde */
 	int** tabNum; /*!< Tableau d'entiers correspondants aux tiles */
+	int xfenscroll, yfenscroll; /*!< Coordonnées de la fenetre de jeu dans l'image globale */
 };
 typedef struct map_s map_t;
 

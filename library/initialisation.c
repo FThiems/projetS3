@@ -8,7 +8,7 @@
 void init_world(world_t* world, SDL_Renderer* screen){
 	world->gameover = false;
 	world->perso = init_perso();
-	SDL_Surface* image_perso = SDL_LoadBMP("ressources/bitmaps/redsqr.bmp");
+	SDL_Surface* image_perso = SDL_LoadBMP("ressources/bitmaps/redsqr2.bmp");
 	world->texture_perso = SDL_CreateTextureFromSurface(screen, image_perso);
   SDL_FreeSurface(image_perso);
 	init_dest(world);
@@ -17,8 +17,8 @@ void init_world(world_t* world, SDL_Renderer* screen){
 
 sqr_t* init_perso(){
 	sqr_t* cube = calloc(1,sizeof(sqr_t));
-	cube->h = 50;
-  cube->w = 50;
+	cube->h = P_HEIGHT;
+  cube->w = P_WIDTH;
   cube->x = F_WIDTH/2 - cube->w/2;
   cube->y = F_HEIGHT - P_HEIGHT +1;
   cube->vx = 0.0;
@@ -65,6 +65,8 @@ map_t* charger_map(world_t* world, SDL_Renderer* screen){
   charger_tileset(F, map, screen);
   charger_level(F, map);
   fclose(F);
+  map->xfenscroll = 0;
+  map->yfenscroll = map->nbtilesY_monde*TILE_HEIGHT - F_HEIGHT;
   return map;
 }
 
@@ -76,7 +78,7 @@ void charger_tileset(FILE* F, map_t* m, SDL_Renderer* screen){
   fscanf(F,"%s",buf); // #tileset
   fscanf(F,"%s",buf); // nom du fichier
 
-  SDL_Surface* tmp = SDL_LoadBMP("ressources/bitmaps/Cube2_Upwell.bmp");
+  SDL_Surface* tmp = SDL_LoadBMP(TILESHEET_NAME);
   if (tmp==NULL)
   {
     printf("Image introuvable !! \n");
@@ -105,10 +107,10 @@ void charger_tileset(FILE* F, map_t* m, SDL_Renderer* screen){
       m->tabTile[numtile].rect.h = TILE_HEIGHT;
       m->tabTile[numtile].rect.x = i*TILE_WIDTH;
       m->tabTile[numtile].rect.y = j*TILE_HEIGHT;
-      // fscanf(F,"%s %s",buf,buf2);
-      // m->tabTile[numtile].mur = 0;
-      // if (strcmp(buf2,"mur")==0)
-      //   m->tabTile[numtile].mur = 1;
+      fscanf(F,"%s %s",buf,buf2);
+      m->tabTile[numtile].typeTile = 0;
+      if (strcmp(buf2,"plein")==0)
+        m->tabTile[numtile].typeTile = 1;
     }
   }
   // for(i = 0; i < m->nbtilesX*m->nbtilesY; i++){
