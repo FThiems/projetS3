@@ -8,7 +8,8 @@
 void refresh_graphics(world_t* world, SDL_Renderer* screen){
 	SDL_RenderClear(screen);
 	afficher_carte(world->map, screen);
-    SDL_RenderCopy(screen, world->texture_perso, NULL, &world->dest);
+	//Afficher le sprite simplement
+    SDL_RenderCopy(screen, world->texture_perso, NULL, &world->perso->dest);
     SDL_RenderPresent(screen);
 
 }

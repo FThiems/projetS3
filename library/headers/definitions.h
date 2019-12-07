@@ -39,10 +39,10 @@
  */
 struct sqr_s
 {
-	double x, y; /*!< Coordonnées du cube */
-	double vx, vy; /*!< Vitesses du cube */
-	int w, h; /*!< Hauteur et largeur du cube */
+	double vx, vy; /*!< Vitesses du personnage */
+	int w, h; /*!< Hauteur et largeur du personnage */
 	bool peutSauter; /*!< Vrai si le perso peut sauter, sinon faux */
+	SDL_Rect dest; /*!< SDL_Rect de là où on veut copier le sprite de notre personnage */
 };
 typedef struct sqr_s sqr_t;
 
@@ -82,9 +82,6 @@ struct world_s
 	//elements du jeu
 	sqr_t* perso; /*!< Pointeur sur le personnage de jeu */
 	map_t* map; /*!< Pointeur sur la structure qui représente la carte de jeu */
-
-	//elements sdl
-	SDL_Rect dest; /*!< SDL_Rect destination du sprite de notre perso */
 
 	//textures du jeu
 	SDL_Texture* texture_perso; /*!< Texture du personnage */

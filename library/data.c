@@ -11,24 +11,50 @@ void data_update(world_t* world){
 }
 
 void perso_update(world_t* world){
-    if (world->perso->vy < 5){
-        world->perso->vy += 0.05;
+    //Déplacement du perso
+    //deplacement_perso(world->perso);
+    essai_deplacement_perso(world);
+    world->perso->vx = 0;
+}
+
+void essai_deplacement_perso(world_t* world){
+    //Next frame
+    sqr_t* alias = calloc(1, sizeof(sqr_t));
+    alias = world->perso;
+    alias->dest.x += world->perso->vx;
+    alias->dest.y += world->perso->vy;
+    SDL_Rect test = {0,0,0,0};
+    //TODO testCollision pour les blocs autour du perso
+    if(testCollision(test, world->perso) == 0){
+        deplacement_perso(world->perso);
+    }
+}
+
+void deplacement_perso(sqr_t* perso){
+    if (perso->vy < 5){
+        perso->vy += 0.05;
     }
     else{
-        world->perso->vy = 5;
+        perso->vy = 5;
     }
     //printf("yes\n");
     //Si à la prochaine frame il rentre en collision alors on stoppe le deplacement
-    if (world->perso->y+world->perso->h+world->perso->vy < F_HEIGHT){
-        world->perso->y += world->perso->vy;
+    if (perso->dest.y+perso->dest.h+perso->vy < F_HEIGHT){
+        perso->dest.y += perso->vy;
     }
     else{
-        world->perso->y = F_HEIGHT-P_HEIGHT+1;
+        perso->dest.y = F_HEIGHT-P_HEIGHT+1;
     }
     //printf("yes\n");
+}
 
-    world->dest.x = world->perso->x;
-    world->dest.y = world->perso->y;
+int testCollision(SDL_Rect mur, sqr_t* perso){
+    //Test de collision AABB
+    if((mur.x >= perso->dest.x + perso->dest.w) || (mur.x + mur.w <= perso->dest.x) 
+    || (mur.y >= perso->dest.y + perso->dest.h) || (mur.y + mur.h <= perso->dest.y)){
+        return 0;
+    }  
+    return 1;
 }
 
 void limit_scroll(world_t* world){

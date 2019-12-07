@@ -18,6 +18,9 @@ HEAD = $(LIBH)definitions.h $(LIBH)initialisation.h $(LIBH)events.h $(LIBH)data.
 
 game: main.c $(SRC) $(HEAD)
 	$(COMPILE) $(SRC) main.c -o $(NAME) $(SDL) 
+
+testsdl: testsdl.c
+	$(COMPILE) testsdl.c $(SDL) -o testsdl
 	
 #####################################################################
 
@@ -36,9 +39,9 @@ graphics.o:        $(LIB)graphics.c                  $(LIBH)graphics.h          
 #####################################################################
 
 clean:
-	rm -f $(NAME)
+	rm -f $(NAME) testsdl
 
 superclean:
-	rm -f $(SRC) $(NAME) 
+	rm -f $(SRC) $(NAME) testsdl
 	
 #####################################################################

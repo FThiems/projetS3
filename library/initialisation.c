@@ -11,7 +11,6 @@ void init_world(world_t* world, SDL_Renderer* screen){
 	SDL_Surface* image_perso = SDL_LoadBMP("ressources/bitmaps/redsqr2.bmp");
 	world->texture_perso = SDL_CreateTextureFromSurface(screen, image_perso);
   SDL_FreeSurface(image_perso);
-	init_dest(world);
   world->map = charger_map(world, screen);
 }
 
@@ -19,16 +18,11 @@ sqr_t* init_perso(){
 	sqr_t* cube = calloc(1,sizeof(sqr_t));
 	cube->h = P_HEIGHT;
   cube->w = P_WIDTH;
-  cube->x = F_WIDTH/2 - cube->w/2;
-  cube->y = F_HEIGHT - P_HEIGHT +1;
+  SDL_Rect dest = {F_WIDTH/2 - cube->w/2, F_HEIGHT - P_HEIGHT +1, cube->w, cube->h};
+  cube->dest = dest;
   cube->vx = 0.0;
   cube->vy = 2.0;
   return cube;
-}
-
-SDL_Rect init_dest(world_t* world){
-	SDL_Rect dest = {world->perso->x, world->perso->y, world->perso->w, world->perso->h};
-	world->dest = dest;
 }
 
 SDL_Renderer* init_sdl(){

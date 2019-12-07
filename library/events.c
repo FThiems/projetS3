@@ -28,13 +28,13 @@ void move_perso(world_t* world){
     keystates = SDL_GetKeyboardState(NULL);
 
     if(keystates[SDL_SCANCODE_LEFT]){
-        world->perso->x -= 3;
+        world->perso->vx -= 3;
     }
     if(keystates[SDL_SCANCODE_RIGHT]){
-        world->perso->x += 3;
+        world->perso->vx += 3;
     }
     if(keystates[SDL_SCANCODE_SPACE]){
-        world->perso->vy = -5;
+        world->perso->vy = -7;
     }
 }
 
