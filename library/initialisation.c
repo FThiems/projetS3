@@ -18,7 +18,7 @@ sqr_t* init_perso(){
 	sqr_t* cube = calloc(1,sizeof(sqr_t));
 	cube->h = P_HEIGHT;
   cube->w = P_WIDTH;
-  SDL_Rect dest = {F_WIDTH/2 - cube->w/2, F_HEIGHT - P_HEIGHT +1, cube->w, cube->h};
+  SDL_Rect dest = {F_WIDTH/2 - cube->w/2, F_HEIGHT - (P_HEIGHT +1)*2, cube->w, cube->h};
   cube->dest = dest;
   cube->vx = 0.0;
   cube->vy = 2.0;
@@ -102,14 +102,17 @@ void charger_tileset(FILE* F, map_t* m, SDL_Renderer* screen){
       m->tabTile[numtile].rect.x = i*TILE_WIDTH;
       m->tabTile[numtile].rect.y = j*TILE_HEIGHT;
       fscanf(F,"%s %s",buf,buf2);
-      m->tabTile[numtile].typeTile = 0;
+      m->tabTile[numtile].typeTile = 1;
       if (strcmp(buf2,"plein")==0)
-        m->tabTile[numtile].typeTile = 1;
+        m->tabTile[numtile].typeTile = 0;
     }
   }
   // for(i = 0; i < m->nbtilesX*m->nbtilesY; i++){
   //   printf("rectx : %d recty : %d rectw : %d recth : %d\n",m->tabTile[i].rect.x,m->tabTile[i].rect.y,m->tabTile[i].rect.w,m->tabTile[i].rect.h);
   // }
+  for(i = 0; i < m->nbtilesX*m->nbtilesY; i++){
+    printf("%d\n", m->tabTile[i].typeTile);
+  }
 }
 
 void charger_level(FILE* F,map_t* m)

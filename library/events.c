@@ -29,12 +29,14 @@ void move_perso(world_t* world){
 
     if(keystates[SDL_SCANCODE_LEFT]){
         world->perso->vx -= 3;
+        // printf("left\n");
     }
     if(keystates[SDL_SCANCODE_RIGHT]){
         world->perso->vx += 3;
+        // printf("rigth\n");
     }
     if(keystates[SDL_SCANCODE_SPACE]){
-        world->perso->vy = -7;
+        world->perso->vy = -5;
     }
 }
 

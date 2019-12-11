@@ -16,10 +16,18 @@ void perso_update(world_t* world);
 
 void deplacement_perso(sqr_t* perso);
 
-int testCollision(SDL_Rect mur, sqr_t* perso);
+int testCollision(map_t* m, SDL_Rect perso);
 
-void essai_deplacement_perso(world_t* world);
+int essai_deplacement_perso(world_t* world);
+
+int essai_deplacement_pixel_perfect(world_t* world, double vx, double vy);
 
 void liberer_memoire(world_t* world, SDL_Renderer* screen);
+
+void approcher_mur(world_t* world);
+
+void update_speeds(sqr_t* perso);
+
+void auto_scroll(world_t* world);
 
 #endif

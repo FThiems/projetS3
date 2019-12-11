@@ -31,10 +31,8 @@ void afficher_carte(map_t* m, SDL_Renderer* screen){
 	miniY = m->yfenscroll / TILE_HEIGHT;
 	maxiX = (m->xfenscroll + F_WIDTH)/TILE_WIDTH;
 	maxiY = (m->yfenscroll + F_HEIGHT)/TILE_HEIGHT;
-	for(j=miniY;j<=maxiY;j++)
-	{
-		for(i=miniX;i<=maxiX;i++)
-		{
+	for(i=miniX;i<=maxiX;i++){
+		for(j=miniY;j<=maxiY;j++){
 			Rect_dest.x = i*TILE_WIDTH;
 			Rect_dest.y = j*TILE_HEIGHT - m->yfenscroll;
 			//Si on oob on affiche le bloc bug

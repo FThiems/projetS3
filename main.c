@@ -30,6 +30,7 @@ int main(int argc, char* argv[])
 
     	handle_events(&world, &event);
     	data_update(&world);
+        // printf("%f\n", world.perso->vy);
         refresh_graphics(&world, screen);
     	SDL_Delay(10);
         
