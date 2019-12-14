@@ -9,7 +9,14 @@
 
 void data_update(world_t* world){
         perso_update(world);
-        limit_scroll(world);
+        // printf("dest.y : %d\n", world->perso->dest.y);
+        // printf("yfenscroll 1: %d\n", world->map->yfenscroll);
+        // if((world->perso->dest.y <= 355 && world->map->yfenscroll <= 1099)
+        //     || (world->perso->dest.y <= 360 && world->map->yfenscroll >= 0)){
+        //     auto_scroll(world);
+        // }
+        auto_scroll(world);
+        // limit_scroll(world);
 }
 
 void perso_update(world_t* world){
@@ -35,6 +42,7 @@ void update_speeds(sqr_t* perso){
 int essai_deplacement_perso(world_t* world){
     //Next frame
     SDL_Rect alias;
+    SDL_Rect prev;
     // printf("1. perso : x = %d, y = %d\n",world->perso->dest.x, world->perso->dest.y);
     alias = world->perso->dest;
     alias.x += world->perso->vx;
@@ -44,27 +52,32 @@ int essai_deplacement_perso(world_t* world){
     //TODO testCollision pour les blocs autour du perso
     if(testCollision(world->map, alias) == 1){
         // printf("0\n");
+        prev = world->perso->dest;
         world->perso->dest = alias;
-        return 0;
+        //On vérifie une deuxième fois à cause du scroll
+        if(testCollision(world->map, world->perso->dest) == 0){
+            world->perso->dest = prev;
+            return 0;
+        }
     }
     // printf("1\n");
     return 1;
 }
 
-void deplacement_perso(sqr_t* perso){
-    //printf("yes\n");
-    //Si à la prochaine frame il rentre en collision avec le sol alors on stoppe le deplacement
-    if (perso->dest.y+perso->dest.h+perso->vy < F_HEIGHT){
-        perso->dest.y += perso->vy;
-    }
-    else{
-        perso->dest.y = F_HEIGHT-P_HEIGHT+1;
-    }
-    //printf("yes\n");
-    //Déplacement du personnage
-    perso->dest.x += perso->vx;
-    perso->dest.y += perso->vy;
-}
+// void deplacement_perso(sqr_t* perso){
+//     //printf("yes\n");
+//     //Si à la prochaine frame il rentre en collision avec le sol alors on stoppe le deplacement
+//     if (perso->dest.y+perso->dest.h+perso->vy < F_HEIGHT){
+//         perso->dest.y += perso->vy;
+//     }
+//     else{
+//         perso->dest.y = F_HEIGHT-P_HEIGHT+1;
+//     }
+//     //printf("yes\n");
+//     //Déplacement du personnage
+//     perso->dest.x += perso->vx;
+//     perso->dest.y += perso->vy;
+// }
 
 void approcher_mur(world_t* world){
     int i;  
@@ -83,6 +96,7 @@ void approcher_mur(world_t* world){
 int essai_deplacement_pixel_perfect(world_t* world, double vx, double vy){
     //Next frame
     SDL_Rect alias;
+    SDL_Rect prev;
     // printf("1. perso : x = %d, y = %d\n",world->perso->dest.x, world->perso->dest.y);
     alias = world->perso->dest;
     alias.x += vx;
@@ -93,8 +107,13 @@ int essai_deplacement_pixel_perfect(world_t* world, double vx, double vy){
     int resTest = testCollision(world->map, alias);
     // printf("%d\n", resTest);
     if(resTest == 1){
+        prev = world->perso->dest;
         world->perso->dest = alias;
-        return 0;
+        //On vérifie une deuxième fois à cause du scroll
+        if(testCollision(world->map, world->perso->dest) == 0){
+            world->perso->dest = prev;
+            return 0;
+        }
     }
     return 1;
 }
@@ -128,15 +147,35 @@ int testCollision(map_t* m, SDL_Rect perso){
 }
 
 void limit_scroll(world_t* world){
-    //Limitations du scrolling manuel
-        if (world->map->xfenscroll<0)
-            world->map->xfenscroll=0;
-        if (world->map->yfenscroll<0)
+    //Limitations du scrolling
+        if (world->map->yfenscroll<0){
             world->map->yfenscroll=0;
-        if (world->map->xfenscroll>world->map->nbtilesX_monde * TILE_WIDTH - F_WIDTH - 1)
-            world->map->xfenscroll=world->map->nbtilesX_monde * TILE_WIDTH - F_WIDTH - 1;
-        if (world->map->yfenscroll>world->map->nbtilesY_monde * TILE_HEIGHT - F_HEIGHT - 1)
+        }
+        if (world->map->yfenscroll>world->map->nbtilesY_monde * TILE_HEIGHT - F_HEIGHT - 1){
             world->map->yfenscroll=world->map->nbtilesY_monde * TILE_HEIGHT - F_HEIGHT - 1;
+        }
+}
+
+void auto_scroll(world_t* world){
+    int yp;
+    yp = world->perso->dest.y + TILE_HEIGHT/2 + world->map->yfenscroll;
+    // printf("yp : %d\n",yp);
+    // printf("dest.y : %d\n", world->perso->dest.y);
+    // printf("yfenscroll 1: %d\n", world->map->yfenscroll);
+    world->map->yfenscroll = yp - (F_HEIGHT/2);
+    world->perso->dest.y = F_HEIGHT/2 - TILE_HEIGHT/2;
+    // printf("yfenscroll 2: %d\n", world->map->yfenscroll);
+   
+    // printf("vy : %f\n", world->perso->vy);
+
+    // world->map->yfenscroll += world->perso->vy;
+
+    // int maxH, minH;
+    // maxH = F_HEIGHT/2 + world->map->nbtilesY_monde*TILE_WIDTH;
+    // minH = F_HEIGHT/2;
+    // if(yp >= minH || yp <= maxH){
+    //      world->perso->dest.y = 350;
+    // }
 }
 
 void liberer_memoire(world_t* world, SDL_Renderer* screen){

@@ -110,9 +110,9 @@ void charger_tileset(FILE* F, map_t* m, SDL_Renderer* screen){
   // for(i = 0; i < m->nbtilesX*m->nbtilesY; i++){
   //   printf("rectx : %d recty : %d rectw : %d recth : %d\n",m->tabTile[i].rect.x,m->tabTile[i].rect.y,m->tabTile[i].rect.w,m->tabTile[i].rect.h);
   // }
-  for(i = 0; i < m->nbtilesX*m->nbtilesY; i++){
-    printf("%d\n", m->tabTile[i].typeTile);
-  }
+  // for(i = 0; i < m->nbtilesX*m->nbtilesY; i++){
+  //   printf("%d\n", m->tabTile[i].typeTile);
+  // }
 }
 
 void charger_level(FILE* F,map_t* m)

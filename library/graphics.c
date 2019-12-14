@@ -37,7 +37,7 @@ void afficher_carte(map_t* m, SDL_Renderer* screen){
 			Rect_dest.y = j*TILE_HEIGHT - m->yfenscroll;
 			//Si on oob on affiche le bloc bug
 			if (i<0 || i>=m->nbtilesX_monde || j<0 || j>=m->nbtilesY_monde)
-				numtile = 0;
+				numtile = 1;
 			else
 				numtile = m->tabNum[i][j];
 			SDL_RenderCopy(screen,m->tileset,&(m->tabTile[numtile].rect),&Rect_dest);

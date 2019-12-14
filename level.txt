@@ -1,15 +1,16 @@
 #tileset
 Spritesheet1.bmp
-4 1
+5 1
 tile0: vide
 tile1: vide
 tile2: plein
 tile3: plein
+tile4: vide
 #level
 11 19
 3 3 3 3 3 3 3 3 3 3 3
 1 1 1 1 1 1 1 1 1 1 1
-1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 4 1 1 1 1 1
 1 1 1 2 2 2 2 2 1 1 1
 1 1 1 1 1 1 1 1 1 1 1 
 1 1 1 1 1 1 1 1 1 1 1
