@@ -14,8 +14,6 @@ void limit_scroll(world_t* world);
 
 void perso_update(world_t* world);
 
-void deplacement_perso(sqr_t* perso);
-
 int testCollision(map_t* m, SDL_Rect perso);
 
 int essai_deplacement_perso(world_t* world);

@@ -35,8 +35,12 @@ void move_perso(world_t* world){
         world->perso->vx += 3;
         // printf("rigth\n");
     }
-    if(keystates[SDL_SCANCODE_SPACE]){
-        world->perso->vy = -5;
+    if(world->perso->peutSauter){
+        if(keystates[SDL_SCANCODE_SPACE]){
+
+            world->perso->vy = -5;
+            world->perso->peutSauter = false;
+        }
     }
 }
 

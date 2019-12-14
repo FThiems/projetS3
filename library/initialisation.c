@@ -22,6 +22,7 @@ sqr_t* init_perso(){
   cube->dest = dest;
   cube->vx = 0.0;
   cube->vy = 2.0;
+  cube->peutSauter = true;
   return cube;
 }
 

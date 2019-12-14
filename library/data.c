@@ -17,6 +17,7 @@ void data_update(world_t* world){
         // }
         auto_scroll(world);
         // limit_scroll(world);
+        printf("%d\n", world->perso->peutSauter);
 }
 
 void perso_update(world_t* world){
@@ -49,18 +50,13 @@ int essai_deplacement_perso(world_t* world){
     alias.y += world->perso->vy;
     // printf("2. perso : x = %d, y = %d\n",world->perso->dest.x, world->perso->dest.y);
     // SDL_Rect test = {0,0,0,0};
-    //TODO testCollision pour les blocs autour du perso
     if(testCollision(world->map, alias) == 1){
-        // printf("0\n");
         prev = world->perso->dest;
         world->perso->dest = alias;
-        //On vérifie une deuxième fois à cause du scroll
-        if(testCollision(world->map, world->perso->dest) == 0){
-            world->perso->dest = prev;
-            return 0;
-        }
+        return 0;
     }
     // printf("1\n");
+    world->perso->peutSauter = true;
     return 1;
 }
 
@@ -109,12 +105,9 @@ int essai_deplacement_pixel_perfect(world_t* world, double vx, double vy){
     if(resTest == 1){
         prev = world->perso->dest;
         world->perso->dest = alias;
-        //On vérifie une deuxième fois à cause du scroll
-        if(testCollision(world->map, world->perso->dest) == 0){
-            world->perso->dest = prev;
-            return 0;
-        }
+        return 0;
     }
+    world->perso->peutSauter = true;
     return 1;
 }
 
