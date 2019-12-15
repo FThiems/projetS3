@@ -159,14 +159,6 @@ void auto_scroll(world_t* world){
 }
 
 void liberer_memoire(world_t* world, SDL_Renderer* screen){
-    /**
-    liste à libérer :
-    map
-    screen
-    sqr
-    window
-    les textures (tilseset...)
-    */
     int i;
     free(world->perso);
     SDL_DestroyRenderer(screen);
