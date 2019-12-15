@@ -38,7 +38,7 @@ SDL_Renderer* init_sdl(){
                                                                   F_WIDTH,
                                                                   F_HEIGHT,
                                                                   SDL_WINDOW_SHOWN);
-    
+  
   SDL_Renderer *pRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 	SDL_SetRenderDrawColor(pRenderer, 0, 0, 0, 255);
@@ -104,8 +104,12 @@ void charger_tileset(FILE* F, map_t* m, SDL_Renderer* screen){
       m->tabTile[numtile].rect.y = j*TILE_HEIGHT;
       fscanf(F,"%s %s",buf,buf2);
       m->tabTile[numtile].typeTile = 1;
-      if (strcmp(buf2,"plein")==0)
+      if (strcmp(buf2,"plein")==0){
         m->tabTile[numtile].typeTile = 0;
+      }
+      if (strcmp(buf2,"victory") == 0){
+        m->tabTile[numtile].typeTile = 2;
+      }
     }
   }
   // for(i = 0; i < m->nbtilesX*m->nbtilesY; i++){
@@ -116,8 +120,7 @@ void charger_tileset(FILE* F, map_t* m, SDL_Renderer* screen){
   // }
 }
 
-void charger_level(FILE* F,map_t* m)
-{
+void charger_level(FILE* F,map_t* m){
   int i,j;
   char buf[1000];  // stocke l'info du fichier
   fscanf(F,"%s",buf); // #level
@@ -149,5 +152,4 @@ void charger_level(FILE* F,map_t* m)
   //   }
   //   printf("\n");
   // }
-
 }

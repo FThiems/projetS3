@@ -11,7 +11,7 @@ void handle_events(world_t* world, SDL_Event* event){
 	while( SDL_PollEvent( event ) ) 
 	{
     	//Fermeture de la fenêtre
-    	if( event->type == SDL_QUIT ) 
+        if( event->type == SDL_QUIT ) 
     	{
         	//Close
         	world->gameover = true;

@@ -15,7 +15,6 @@ int main(int argc, char* argv[])
     SDL_Event event;
     world_t world;
     init_world(&world, screen);
-    init_graphics(&world, screen);
 
     // SDL_Surface* p = SDL_LoadBMP("ressources/bitmaps/Cube1_Upwell.bmp");
     // SDL_Texture* test = SDL_CreateTextureFromSurface(screen, p);
@@ -25,7 +24,8 @@ int main(int argc, char* argv[])
     // SDL_RenderPresent(screen);
 
     
-    //Boucle de jeu
+    //Boucle de jeu 
+    printf("Timmy a perdu sa cartouche de N64 dans une tour !!!\nAidez Timmy a retrouver sa cartouche !\n");
     while(!world.gameover){
 
     	handle_events(&world, &event);

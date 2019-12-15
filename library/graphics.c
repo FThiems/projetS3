@@ -14,10 +14,6 @@ void refresh_graphics(world_t* world, SDL_Renderer* screen){
 
 }
 
-void init_graphics(world_t* world, SDL_Renderer* screen){
-
-}
-
 void afficher_carte(map_t* m, SDL_Renderer* screen){
 	// SDL_Rect Rect_dest = {0,0,TILE_WIDTH, TILE_HEIGHT};
 	// SDL_Rect Rect_src = {0,0, TILE_WIDTH, TILE_HEIGHT};

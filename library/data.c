@@ -17,7 +17,7 @@ void data_update(world_t* world){
         // }
         auto_scroll(world);
         // limit_scroll(world);
-        printf("%d\n", world->perso->peutSauter);
+        // printf("%d\n", world->perso->peutSauter);
 }
 
 void perso_update(world_t* world){
@@ -50,7 +50,7 @@ int essai_deplacement_perso(world_t* world){
     alias.y += world->perso->vy;
     // printf("2. perso : x = %d, y = %d\n",world->perso->dest.x, world->perso->dest.y);
     // SDL_Rect test = {0,0,0,0};
-    if(testCollision(world->map, alias) == 1){
+    if(testCollision(world, alias) == 1){
         prev = world->perso->dest;
         world->perso->dest = alias;
         return 0;
@@ -100,7 +100,7 @@ int essai_deplacement_pixel_perfect(world_t* world, double vx, double vy){
     // printf("2. perso : x = %d, y = %d\n",world->perso->dest.x, world->perso->dest.y);
     SDL_Rect test = {0,0,0,0};
     //TODO testCollision pour les blocs autour du perso
-    int resTest = testCollision(world->map, alias);
+    int resTest = testCollision(world, alias);
     // printf("%d\n", resTest);
     if(resTest == 1){
         prev = world->perso->dest;
@@ -111,29 +111,31 @@ int essai_deplacement_pixel_perfect(world_t* world, double vx, double vy){
     return 1;
 }
 
-int testCollision(map_t* m, SDL_Rect perso){
+int testCollision(world_t* world, SDL_Rect perso){
     // printf("test collision\n");
     int xmin,xmax,ymin,ymax,i,j,indicetile;
     xmin = perso.x / TILE_WIDTH;
-    ymin = (perso.y + m->yfenscroll) / TILE_HEIGHT;
+    ymin = (perso.y + world->map->yfenscroll) / TILE_HEIGHT;
     xmax = (perso.x + perso.w -1) / TILE_WIDTH;
-    ymax = ((perso.y + perso.h -1) + m->yfenscroll) / TILE_HEIGHT; 
+    ymax = ((perso.y + perso.h -1) + world->map->yfenscroll) / TILE_HEIGHT; 
     // printf("xin:%d ymin:%d xmax:%d ymax:%d\n",xmin, ymin, xmax, ymax);
     //Test de collision AABB
-    if (xmin<0 || ymin<0 || xmax>=m->nbtilesX_monde || ymax>=m->nbtilesY_monde)
+    if (xmin<0 || ymin<0 || xmax>=world->map->nbtilesX_monde || ymax>=world->map->nbtilesY_monde)
         return 0;
     // printf("2eme\n");
     for(i=xmin;i<=xmax;i++){
 
         for(j=ymin;j<=ymax;j++){
 
-            indicetile = m->tabNum[i][j];
-            // printf("type : %d\n",m->tabTile[indicetile].typeTile);
-            if (m->tabTile[indicetile].typeTile == 0){
+            indicetile = world->map->tabNum[i][j];
+            // printf("type : %d\n",map->tabTile[indicetile].typeTile);
+            if (world->map->tabTile[indicetile].typeTile == 0){
                 // printf("Collision ! \n");
                 return 0;
             }
-
+            if(world->map->tabTile[indicetile].typeTile == 2){
+                world->gameover = true;
+            }
         }
     }
     return 1;
@@ -152,23 +154,8 @@ void limit_scroll(world_t* world){
 void auto_scroll(world_t* world){
     int yp;
     yp = world->perso->dest.y + TILE_HEIGHT/2 + world->map->yfenscroll;
-    // printf("yp : %d\n",yp);
-    // printf("dest.y : %d\n", world->perso->dest.y);
-    // printf("yfenscroll 1: %d\n", world->map->yfenscroll);
     world->map->yfenscroll = yp - (F_HEIGHT/2);
     world->perso->dest.y = F_HEIGHT/2 - TILE_HEIGHT/2;
-    // printf("yfenscroll 2: %d\n", world->map->yfenscroll);
-   
-    // printf("vy : %f\n", world->perso->vy);
-
-    // world->map->yfenscroll += world->perso->vy;
-
-    // int maxH, minH;
-    // maxH = F_HEIGHT/2 + world->map->nbtilesY_monde*TILE_WIDTH;
-    // minH = F_HEIGHT/2;
-    // if(yp >= minH || yp <= maxH){
-    //      world->perso->dest.y = 350;
-    // }
 }
 
 void liberer_memoire(world_t* world, SDL_Renderer* screen){
@@ -180,5 +167,15 @@ void liberer_memoire(world_t* world, SDL_Renderer* screen){
     window
     les textures (tilseset...)
     */
-
+    int i;
+    free(world->perso);
+    SDL_DestroyRenderer(screen);
+    SDL_DestroyTexture(world->texture_perso);
+    SDL_DestroyTexture(world->map->tileset);
+    free(world->map->tabTile);
+    for(i = 0; i < world->map->nbtilesX_monde; i++){
+        free(world->map->tabNum[i]);
+    }
+    free(world->map->tabNum);
+    free(world->map);
 }
