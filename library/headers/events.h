@@ -27,4 +27,10 @@ void move_perso(world_t* world);
  */
 void move_scrolling(world_t* world);
 
+/**
+ * \brief change les tiles 2 et 4
+ * \param world ensemble des données du monde
+ */
+void change_tiles(world_t* world);
+
 #endif

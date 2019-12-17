@@ -16,6 +16,9 @@ void handle_events(world_t* world, SDL_Event* event){
         	//Close
         	world->gameover = true;
     	}
+        if( event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_x){
+            change_tiles(world);
+        }
     }
     move_perso(world);
     move_scrolling(world);
@@ -57,3 +60,5 @@ void move_scrolling(world_t* world){
         world->map->yfenscroll -= 3;
     }
 }
+
+

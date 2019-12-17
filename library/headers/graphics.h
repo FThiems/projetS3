@@ -22,4 +22,11 @@ void refresh_graphics(world_t* world, SDL_Renderer* screen);
  */
 void afficher_carte(map_t* m, SDL_Renderer* screen);
 
+/**
+ * \brief Affiche l'écran de fin
+ * \param world ensemble des données du monde
+ * \param screen Surface de rendu de la fenêtre
+ */ 
+void afficher_ecran_de_fin(world_t* world, SDL_Renderer* screen);
+
 #endif

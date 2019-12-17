@@ -15,9 +15,6 @@ void refresh_graphics(world_t* world, SDL_Renderer* screen){
 }
 
 void afficher_carte(map_t* m, SDL_Renderer* screen){
-	// SDL_Rect Rect_dest = {0,0,TILE_WIDTH, TILE_HEIGHT};
-	// SDL_Rect Rect_src = {0,0, TILE_WIDTH, TILE_HEIGHT};
-	// SDL_RenderCopy(screen, m->tileset, &Rect_src, &Rect_dest);
 	int i,j;
 	SDL_Rect Rect_dest = {0,0,TILE_WIDTH,TILE_HEIGHT};
 	int numtile;
@@ -39,5 +36,16 @@ void afficher_carte(map_t* m, SDL_Renderer* screen){
 			SDL_RenderCopy(screen,m->tileset,&(m->tabTile[numtile].rect),&Rect_dest);
 		}
 	}
+}
+
+void afficher_ecran_de_fin(world_t* world, SDL_Renderer* screen){
+	SDL_Surface* t = SDL_LoadBMP("ressources/bitmaps/endscreen.bmp");
+	SDL_Texture* tex = SDL_CreateTextureFromSurface(screen, t);
+	SDL_FreeSurface(t);
+	SDL_RenderClear(screen);
+	SDL_RenderCopy(screen, tex, NULL, NULL);
+	SDL_RenderPresent(screen);
+	SDL_DestroyTexture(tex);
+	SDL_Delay(3000);
 }
 

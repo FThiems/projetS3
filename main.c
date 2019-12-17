@@ -35,6 +35,7 @@ int main(int argc, char* argv[])
     	SDL_Delay(10);
         
     }
+    afficher_ecran_de_fin(&world, screen);
     liberer_memoire(&world, screen);
     SDL_Quit();
 }

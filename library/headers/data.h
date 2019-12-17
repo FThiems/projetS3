@@ -75,4 +75,10 @@ void update_speeds(sqr_t* perso);
 */
 void auto_scroll(world_t* world);
 
+/**
+ * \brief change les tiles 2 et 4
+ * \param world ensemble des données du monde
+ */
+void change_tiles(world_t* world);
+
 #endif
